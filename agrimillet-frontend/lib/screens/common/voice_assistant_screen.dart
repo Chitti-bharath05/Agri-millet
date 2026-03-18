@@ -110,6 +110,10 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
         title: const Text('Voice Assistant'),
         backgroundColor: const Color(0xFF2E7D32),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

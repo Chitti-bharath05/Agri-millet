@@ -97,6 +97,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
         title: const Text('Order Summary & Payment'),
         backgroundColor: const Color(0xFF2E7D32),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

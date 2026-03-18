@@ -11,7 +11,16 @@ class ApiService {
   // For Android emulator: use 10.0.2.2:5000/api
   // For physical device: use your PC's IP address (e.g., 192.168.x.x:5000/api)
   
+  static final ApiService _instance = ApiService._internal();
+  
   String? _token;
+
+  // Singleton constructor
+  factory ApiService() {
+    return _instance;
+  }
+
+  ApiService._internal();
 
   void setToken(String token) {
     _token = token;

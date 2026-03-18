@@ -170,6 +170,10 @@ class _UploadCropScreenState extends State<UploadCropScreen> {
         title: const Text('Upload Crop'),
         backgroundColor: const Color(0xFF2E7D32),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

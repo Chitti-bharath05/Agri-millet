@@ -42,6 +42,10 @@ class _TrackingScreenState extends State<TrackingScreen> {
         title: const Text('Delivery Tracking'),
         backgroundColor: const Color(0xFF2E7D32),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Consumer<TransactionProvider>(
         builder: (context, transactionProvider, _) {
