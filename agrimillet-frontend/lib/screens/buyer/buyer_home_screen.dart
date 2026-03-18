@@ -54,6 +54,12 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AgriMillet - Buyer'),
+        leading: _currentIndex != 0
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => setState(() => _currentIndex = 0),
+              )
+            : null,
         actions: [
           IconButton(
             icon: const Icon(Icons.mic),
