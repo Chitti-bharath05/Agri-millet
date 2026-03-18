@@ -56,8 +56,9 @@ exports.getMarketplaceCrops = async (req, res) => {
 
     if (market === 'state') {
       filter.farmerState = user.state;
+      filter.market = 'state';
     } else if (market === 'national') {
-      // National market shows all crops
+      filter.market = 'national';
     } else {
       // Default: show both state and national crops
     }
