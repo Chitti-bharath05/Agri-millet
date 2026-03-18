@@ -34,9 +34,17 @@ class Crop {
   });
 
   factory Crop.fromJson(Map<String, dynamic> json) {
+    // Extract farmerId - can be either a string ID or a populated object
+    String farmerId = '';
+    if (json['farmerId'] is String) {
+      farmerId = json['farmerId'];
+    } else if (json['farmerId'] is Map) {
+      farmerId = json['farmerId']['_id'] ?? '';
+    }
+
     return Crop(
       id: json['_id'] ?? '',
-      farmerId: json['farmerId'] ?? '',
+      farmerId: farmerId,
       farmerState: json['farmerState'] ?? '',
       farmerDistrict: json['farmerDistrict'] ?? '',
       milletType: json['milletType'] ?? '',
