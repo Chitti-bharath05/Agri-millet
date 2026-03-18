@@ -239,7 +239,9 @@ class _VoiceAssistantScreenState extends State<VoiceAssistantScreen> {
                       onChanged: (value) {
                         if (value != null) {
                           setState(() => _selectedLanguage = value);
-                          _selectTopic('hi');
+                          // Speak confirmation that language changed
+                          final langName = _languageNames[value] ?? value;
+                          _speak('Language changed to $langName');
                         }
                       },
                     ),
