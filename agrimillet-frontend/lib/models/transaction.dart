@@ -36,11 +36,33 @@ class Transaction {
   });
 
   factory Transaction.fromJson(Map<String, dynamic> json) {
+    // Extract IDs - can be either string IDs or populated objects
+    String cropId = '';
+    if (json['cropId'] is String) {
+      cropId = json['cropId'];
+    } else if (json['cropId'] is Map) {
+      cropId = json['cropId']['_id'] ?? '';
+    }
+
+    String farmerId = '';
+    if (json['farmerId'] is String) {
+      farmerId = json['farmerId'];
+    } else if (json['farmerId'] is Map) {
+      farmerId = json['farmerId']['_id'] ?? '';
+    }
+
+    String buyerId = '';
+    if (json['buyerId'] is String) {
+      buyerId = json['buyerId'];
+    } else if (json['buyerId'] is Map) {
+      buyerId = json['buyerId']['_id'] ?? '';
+    }
+
     return Transaction(
       id: json['_id'] ?? '',
-      cropId: json['cropId'] ?? '',
-      farmerId: json['farmerId'] ?? '',
-      buyerId: json['buyerId'] ?? '',
+      cropId: cropId,
+      farmerId: farmerId,
+      buyerId: buyerId,
       quantity: (json['quantity'] ?? 0).toDouble(),
       pricePerKg: (json['pricePerKg'] ?? 0).toDouble(),
       totalAmount: (json['totalAmount'] ?? 0).toDouble(),
