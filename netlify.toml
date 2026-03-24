@@ -1,5 +1,5 @@
 [build]
-  command = "npm install && npm run build"
+  command = ""
   publish = "agrimillet-frontend/build/web"
   functions = "agrimillet-backend"
 

@@ -9,7 +9,6 @@ conn-result.log
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-build/
 *.symbol
 
 # IDEs
