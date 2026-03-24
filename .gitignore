@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+npm-debug.log
+.env
+conn-result.log
+
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.symbol
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary
+test-conn.js
+check-prices.js
+seed-prices.js
