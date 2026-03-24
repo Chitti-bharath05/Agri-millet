@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/user.dart';
@@ -7,15 +8,26 @@ import '../models/government_price.dart';
 import '../models/chat.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:5000/api'; // Web/localhost
-  // For Android emulator: use 10.0.2.2:5000/api
-  // For physical device: use your PC's IP address (e.g., 192.168.x.x:5000/api)
+  // ─── CHANGE THIS TO YOUR PC'S LOCAL IP ADDRESS ───────────────────────────
+  // Find it by running `ipconfig` (Windows) or `ifconfig` (Mac/Linux)
+  // Look for IPv4 Address under your WiFi adapter, e.g. 192.168.1.5
+  // Your phone and PC must be on the SAME WiFi network.
+  static const String _pcIp = '192.168.0.100'; // Mobile local IP
   
+  static String get baseUrl {
+    if (kIsWeb) {
+      // For web, if you're running locally, use localhost. 
+      // If deployed, you can use the current origin if backend and frontend are hosted together.
+      return 'http://127.0.0.1:5000/api';
+    }
+    return 'http://$_pcIp:5000/api';
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   static final ApiService _instance = ApiService._internal();
   
   String? _token;
 
-  // Singleton constructor
   factory ApiService() {
     return _instance;
   }

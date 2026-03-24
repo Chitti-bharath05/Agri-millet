@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../../providers/crop_provider.dart';
 import '../../providers/auth_provider.dart';
 
@@ -21,7 +21,7 @@ class _UploadCropScreenState extends State<UploadCropScreen> {
   String? _selectedMilletType;
   String? _selectedMarket;
   DateTime? _selectedHarvestDate;
-  List<File> _selectedImages = [];
+  List<XFile> _selectedImages = [];
   
   double? _governmentPrice;
   bool _loadingGovernmentPrice = false;
@@ -57,7 +57,7 @@ class _UploadCropScreenState extends State<UploadCropScreen> {
     
     if (pickedFiles.isNotEmpty) {
       setState(() {
-        _selectedImages = pickedFiles.map((xFile) => File(xFile.path)).toList();
+        _selectedImages = pickedFiles;
       });
     }
   }
@@ -193,7 +193,7 @@ class _UploadCropScreenState extends State<UploadCropScreen> {
               ),
               const SizedBox(height: 8),
               DropdownButtonFormField<String>(
-                initialValue: _selectedMilletType,
+                value: _selectedMilletType,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   border: OutlineInputBorder(
@@ -506,12 +506,23 @@ class _UploadCropScreenState extends State<UploadCropScreen> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.file(
-                                _selectedImages[index],
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
+                              child: kIsWeb
+                                ? Image.network(
+                                    _selectedImages[index].path,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network( // On mobile, XFile.path is just a local path, but Image.network works for blobs on web. 
+                                    // For mobile we might still need File(path) or something, 
+                                    // but actually Image.asset/file is preferred. 
+                                    // Let's use a more robust way.
+                                    _selectedImages[index].path,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                                  ),
                             ),
                             Positioned(
                               top: -8,

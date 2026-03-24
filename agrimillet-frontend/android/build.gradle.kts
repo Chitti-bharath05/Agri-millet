@@ -6,10 +6,22 @@ allprojects {
 }
 
 plugins {
-    id("com.android.application") version "8.1.0" apply false
-    id("com.android.library") version "8.1.0" apply false
+    id("com.android.application") apply false
+    id("com.android.library") apply false
     id("dev.flutter.flutter-gradle-plugin") apply false
-    kotlin("android") version "1.8.0" apply false
+    id("org.jetbrains.kotlin.android") apply false
+}
+
+// Force compileSdk on plugin subprojects that don't declare it
+subprojects {
+    afterEvaluate {
+        val androidExt = project.extensions.findByName("android")
+        if (androidExt is com.android.build.gradle.LibraryExtension) {
+            if (androidExt.compileSdkVersion == null || androidExt.compileSdkVersion == "android-1") {
+                androidExt.compileSdkVersion(36)
+            }
+        }
+    }
 }
 
 val newBuildDir: Directory =
@@ -28,4 +40,15 @@ subprojects {
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
+}
+buildscript {
+    ext.kotlin_version = '1.9.0' // or latest
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
